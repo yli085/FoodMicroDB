@@ -8,7 +8,7 @@
 # sum：128 projects, 79 foods, 113 studies
 
 getwd()
-# "/Users/yahui/Documents/01work/09Liu_lab/02FoodMicroDB/0add_data/YLv4/newdata0717"
+# "/Users/yahui/Documents/work/newdata/"
 library(readxl)
 library(tidyverse)
 library(writexl)
