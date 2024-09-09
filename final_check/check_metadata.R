@@ -52,7 +52,7 @@ sample <- read_excel("Sample_metadata.xlsx")
 project <- read_excel("Project_metadata.xlsx")
 
 proj_food <- project["Food"]
-proj_food <- proj_food %>% separate_rows(Food, sep="\\|\\|")
+proj_food2 <- proj_food %>% separate_rows(Food, sep="\\|\\|")
 samp_food <- sample["Food"]
 
 # food table vs project table
@@ -61,23 +61,16 @@ setdiff(unique(food$Food), unique(samp_food$Food)) # character(0)
 setdiff(unique(samp_food$Food),unique(food$Food)) # "NA"
 
 #  project table vs sample table
-unique(proj_food$Food) %>% length # 79
+unique(proj_food2$Food) %>% length # 79
 unique(samp_food$Food) %>% length # 80
-setdiff(unique(samp_food$Food), unique(proj_food$Food)) # "NA"
-setdiff(unique(proj_food$Food),unique(samp_food$Food)) # character(0)
+setdiff(unique(samp_food$Food), unique(proj_food2$Food)) # "NA"
+setdiff(unique(proj_food2$Food),unique(samp_food$Food)) # character(0)
 
 
-# hosts and prevalence stat -------------------------------------------------
-# The website use the "Food-Food part" as the host, while ignoring my Host.
-# When I fill the Food info, some hosts are 简并。Host是比较具体，Food更加简洁。比如
-# 各种Cheese 我都叫cheese，纯粹后续做Food页面更加方便，也为了我希望的多个项目可以合并到
-# 一起，后可以做所谓的荟萃分析。
-# With that, 那么我们真正的host，应该如何算？
+# hosts check for food and food part -------------------------------------------------
+# to check if the numbers of hosts for food and food part are the same
 
 df <- read_excel('Sample_metadata.xlsx')
 df2 <- df %>% unite(Host2, c("Food", "Food_part"))
-host2 <- as.data.frame(unique(df2$Host2)) # 104, but one is NA-NA, so 103.
 host1 <- as.data.frame(unique(df$Host)) # 125
-
-hosts[1:20]
-unique(df$Food) %>% length # 80, including 1 NA
+host2 <- as.data.frame(unique(df2$Host2)) # 104, but one is NA-NA, so 103.
